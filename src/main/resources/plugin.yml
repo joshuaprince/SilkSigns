@@ -1,0 +1,26 @@
+name: SilkSigns
+version: '${version}'
+main: com.jtprince.silksigns.SilkSigns
+api-version: '1.20'
+authors: [Joshua Prince]
+description: Use silk touch to pick up signs with text
+permissions:
+  silksigns.break:
+    description: Allow use of silk touch tools to receive written signs
+    default: true
+  silksigns.break.creative:
+    description: Drop written signs as items when broken, even in creative mode
+    default: false
+    children:
+      - silksigns.break
+  silksigns.break.withoutsilktouch:
+    description: Drop written signs as items when broken, even without using silk touch
+    default: false
+    children:
+      - silksigns.break
+  silksigns.place:
+    description: Allow placement of written signs previously obtained with silk touch
+    default: true
+  silksigns.reload:
+    description: Allow use of /silksigns reload
+    default: op
