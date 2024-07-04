@@ -1,8 +1,8 @@
 package com.jtprince.silksigns.listener;
 
 import com.jtprince.silksigns.SignItemConverter;
+import com.jtprince.silksigns.config.ConfigProvider;
 import org.bukkit.GameMode;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -10,9 +10,11 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class BlockBreakListener implements Listener {
+    private final ConfigProvider config;
     private final SignItemConverter signItemConverter;
 
-    public BlockBreakListener(SignItemConverter signItemConverter) {
+    public BlockBreakListener(ConfigProvider config, SignItemConverter signItemConverter) {
+        this.config = config;
         this.signItemConverter = signItemConverter;
     }
 
@@ -25,7 +27,7 @@ public class BlockBreakListener implements Listener {
 
         // Only affect behavior when the player is using silk touch or has permission to break signs without silk touch
         ItemStack tool = event.getPlayer().getInventory().getItemInMainHand();
-        if (!tool.containsEnchantment(Enchantment.SILK_TOUCH)
+        if (tool.getEnchantmentLevel(config.get().tool.enchantment) < config.get().tool.minimumLevel
                 && !event.getPlayer().hasPermission("silksigns.break.withoutsilktouch")) return;
 
         // If another plugin has disabled item drops, don't override it

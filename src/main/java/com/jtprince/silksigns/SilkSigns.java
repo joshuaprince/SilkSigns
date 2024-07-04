@@ -20,7 +20,7 @@ public final class SilkSigns extends JavaPlugin implements CommandExecutor {
 
         SignItemConverter signItemConverter = new SignItemConverter(configProvider);
 
-        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(signItemConverter), this);
+        Bukkit.getPluginManager().registerEvents(new BlockBreakListener(configProvider, signItemConverter), this);
         // Bukkit.getPluginManager().registerEvents(new BlockNaturalBreakListener(configProvider, signItemConverter), this);
         Bukkit.getPluginManager().registerEvents(new BlockPlaceListener(signItemConverter), this);
         Bukkit.getPluginManager().registerEvents(new SignEditListener(), this);
