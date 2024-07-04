@@ -12,6 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class SilkSigns extends JavaPlugin implements CommandExecutor {
     static SilkSigns instance;
     ConfigProvider configProvider;
+    MetricsWrapper metricsWrapper;
 
     @Override
     public void onEnable() {
@@ -26,10 +27,21 @@ public final class SilkSigns extends JavaPlugin implements CommandExecutor {
         Bukkit.getPluginManager().registerEvents(new SignEditListener(), this);
 
         Bukkit.getCommandMap().register("silksigns", new SilkSignsCommand(this));
+
+        try {
+            metricsWrapper = new MetricsWrapper(this, configProvider);
+            metricsWrapper.startReports();
+        } catch (Exception e) {
+            getLogger().warning("Failed to initialize metrics.");
+        }
     }
 
     @Override
     public void onDisable() {
+        if (metricsWrapper != null) {
+            metricsWrapper.stopReports();
+            metricsWrapper = null;
+        }
         configProvider = null;
         instance = null;
     }

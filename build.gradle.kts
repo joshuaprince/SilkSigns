@@ -16,6 +16,7 @@ repositories {
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.20.6-R0.1-SNAPSHOT")
     implementation("de.exlll:configlib-paper:4.5.0")
+    implementation("org.bstats:bstats-bukkit:3.0.2")
 }
 
 java {
