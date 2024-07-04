@@ -18,7 +18,7 @@ public class BlockBreakListener implements Listener {
         this.signItemConverter = signItemConverter;
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event) {
         if (!event.getPlayer().hasPermission("silksigns.break")) return;
 

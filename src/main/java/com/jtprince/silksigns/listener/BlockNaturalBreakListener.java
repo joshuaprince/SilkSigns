@@ -17,7 +17,7 @@ public class BlockNaturalBreakListener implements Listener {
         this.signItemConverter = signItemConverter;
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGHEST)
     public void onBlockDestroy(BlockDestroyEvent event) {
         // FIXME! if (!config.get().physicsEventsDropWrittenSigns) return;
 

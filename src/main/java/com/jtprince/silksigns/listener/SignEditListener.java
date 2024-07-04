@@ -7,7 +7,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 public class SignEditListener implements Listener {
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
     public void onSignChange(PlayerOpenSignEvent event) {
         // Placing a sign with text on it opens the editor, which forcibly overwrites the text.
         // Prevent overwrites by not opening the editor if the sign already contains text.

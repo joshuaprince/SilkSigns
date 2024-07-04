@@ -15,7 +15,7 @@ public class BlockPlaceListener implements Listener {
         this.signItemConverter = signItemConverter;
     }
 
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
+    @EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
     public void onBlockPlace(BlockPlaceEvent event) {
         if (!event.getPlayer().hasPermission("silksigns.place")) return;
 
