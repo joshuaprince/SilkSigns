@@ -2,7 +2,8 @@ name: SilkSigns
 version: '${version}'
 main: com.jtprince.silksigns.SilkSigns
 api-version: '1.20.5'
-authors: [Joshua Prince]
+author: jtprince
+website: https://github.com/joshuaprince/SilkSigns
 description: Use silk touch to pick up signs with text
 permissions:
   silksigns.break:
