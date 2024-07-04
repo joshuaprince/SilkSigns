@@ -7,6 +7,16 @@ import org.bukkit.enchantments.Enchantment;
 @Configuration
 public class SilkSignsConfig {
     static YamlConfigurationProperties properties = ConfigLib.BUKKIT_DEFAULT_PROPERTIES.toBuilder()
+            .header(
+                    """
+                    SilkSigns configuration
+                    -----------------------
+                    Comments in this file will be overwritten when the plugin loads.
+                    Also give the following permissions for per-user configuration:
+                     - silksigns.break.creative - Written signs drop in creative mode.
+                     - silksigns.break.notool   - Written signs drop regardless of tool.
+                    """
+            )
             .build();
 
     private static class EnchantmentRegistrySerializer extends RegistrySerializer<Enchantment> {
@@ -25,8 +35,8 @@ public class SilkSignsConfig {
     @Comment(
             """
             Requirements for the tool used to break a sign to drop a written sign item.
-            Signs broken by players with the permission "silksigns.break.withoutsilktouch"
-              will drop as a written sign even when not using this tool."""
+            Set level to 0 or give permission "silksigns.break.notool" to drop written
+              signs even when not using this tool."""
     )
     public ToolConfig tool = new ToolConfig();
 
@@ -35,9 +45,10 @@ public class SilkSignsConfig {
         @Comment(
                 """
                 Rename written signs according to the specified format.
-                MiniMessage tags are supported: https://docs.advntr.dev/minimessage/format.html
-                <name> will be replaced with the original (translatable) name of the sign,
-                  e.g. "Oak Sign" or "Warped Hanging Sign".
+                MiniMessage tags are supported:
+                  https://docs.advntr.dev/minimessage/format.html
+                "<name>" will be replaced with the original (translatable) name of the
+                  sign, e.g. "Oak Sign" or "Warped Hanging Sign".
                 If empty (set to two single-quotes ''), signs containing text will not be
                   renamed."""
         )
@@ -64,10 +75,10 @@ public class SilkSignsConfig {
 //          breaking the support block).
 //        NOTE: this means players do NOT need silk touch to obtain a sign with text
 //          (and you should consider giving the permission
-//          "silksigns.break.withoutsilktouch" too)"""
+//          "silksigns.break.notool" too)"""
 //    )
 //    public boolean physicsEventsDropWrittenSigns = false;
 
-    @Comment("Remove wax from signs when broken with silk touch, making them editable again.")
+    @Comment("Remove wax from waxed signs when broken with silk touch, making them\neditable again.")
     public boolean unwaxOnBreak = true;
 }

@@ -28,7 +28,7 @@ public class BlockBreakListener implements Listener {
         // Only affect behavior when the player is using silk touch or has permission to break signs without silk touch
         ItemStack tool = event.getPlayer().getInventory().getItemInMainHand();
         if (tool.getEnchantmentLevel(config.get().tool.enchantment) < config.get().tool.minimumLevel
-                && !event.getPlayer().hasPermission("silksigns.break.withoutsilktouch")) return;
+                && !event.getPlayer().hasPermission("silksigns.break.notool")) return;
 
         // If another plugin has disabled item drops, don't override it
         if (!event.isDropItems()) return;

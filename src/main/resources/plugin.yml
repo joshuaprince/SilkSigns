@@ -13,7 +13,7 @@ permissions:
     default: false
     children:
       - silksigns.break
-  silksigns.break.withoutsilktouch:
+  silksigns.break.notool:
     description: Drop written signs as items when broken, even without using silk touch
     default: false
     children:
