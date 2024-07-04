@@ -16,7 +16,12 @@ public class RegistrySerializer<T extends Keyed> implements Serializer<T, String
 
     @Override
     public String serialize(T element) {
-        return element.key().asMinimalString();
+        try {
+            return element.key().asMinimalString();
+        } catch (NoSuchMethodError e) {
+            // asMinimalString was added around 1.20.2, fall back on the old method
+            return element.key().toString();
+        }
     }
 
     @Override

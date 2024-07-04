@@ -24,7 +24,7 @@
 
 ## Installation and Usage
 
-**Requires Paper or a fork for Minecraft 1.20.6+**
+**Requires Paper or a fork for Minecraft 1.20.1+**
 
 * Download the latest [release](https://github.com/joshuaprince/SilkSigns/releases)
 * Place it in your plugins folder

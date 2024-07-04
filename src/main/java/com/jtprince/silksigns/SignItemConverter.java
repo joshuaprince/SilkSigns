@@ -10,8 +10,11 @@ import net.kyori.adventure.text.minimessage.tag.Tag;
 import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
 import org.jetbrains.annotations.Nullable;
@@ -40,8 +43,14 @@ public class SignItemConverter {
         }
 
         if (sign.isPlaced()) {
-            //noinspection UnstableApiUsage
-            sign = (Sign) sign.copy(sign.getLocation());
+            // Try to make a copy of the blockstate so we don't accidentally modify the original block
+            //  (this probably won't happen because we're not calling update(), but just in case)
+            try {
+                //noinspection UnstableApiUsage
+                sign = (Sign) sign.copy(sign.getLocation());
+            } catch (NoSuchMethodError e) {
+                // BlockState#copy was added in 1.20.6; just move forward with the original blockstate
+            }
         }
 
         // Wall signs have material WALL_SIGN, which cannot be converted to an item.
@@ -61,7 +70,7 @@ public class SignItemConverter {
 
         Objects.requireNonNull(meta).setBlockState(sign);
 
-        meta.setEnchantmentGlintOverride(config.get().writtenSignItem.enchantmentGlint);
+        applyEnchantmentGlint(config.get().writtenSignItem.enchantmentGlint, meta);
 
         if (!config.get().writtenSignItem.nameFormat.isBlank()) {
             copySignNameToMeta(itemType, meta);
@@ -101,6 +110,23 @@ public class SignItemConverter {
         placedSign.update();
     }
 
+    protected void applyEnchantmentGlint(boolean glint, BlockStateMeta meta) {
+        try {
+            meta.setEnchantmentGlintOverride(glint);
+        } catch (NoSuchMethodError e) {
+            if (glint) {
+                // ItemMeta#setEnchantmentGlintOverride was added in 1.20.6; try using the old method
+                // Have to use getByKey here since Unbreaking was "DURABILITY" in the enum in pre-1.20.6 API
+                @SuppressWarnings("deprecation")
+                Enchantment fallbackEnchantment = Enchantment.getByKey(NamespacedKey.fromString("unbreaking"));
+                if (fallbackEnchantment != null) {
+                    meta.addEnchant(fallbackEnchantment, 1, true);
+                    meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                }
+            }
+        }
+    }
+
     protected void copySignNameToMeta(final @Nullable Material signType, final BlockStateMeta meta) {
         Component newName = null; // Clear custom name if null
         if (signType != null) {
@@ -109,7 +135,16 @@ public class SignItemConverter {
                     TagResolver.resolver("name", Tag.inserting(Component.translatable(signType.translationKey())))
             );
         }
-        meta.itemName(newName);
+
+        try {
+            meta.itemName(newName);
+        } catch (NoSuchMethodError e) {
+            // ItemMeta#itemName was added in 1.20.6; try using the old method
+            if (newName != null) {
+                newName = newName.decoration(TextDecoration.ITALIC, false);
+            }
+            meta.displayName(newName);
+        }
     }
 
     protected void copySignTextToMeta(final @Nullable org.bukkit.block.Sign sign, BlockStateMeta meta) {
