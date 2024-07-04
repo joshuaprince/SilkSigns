@@ -2,7 +2,7 @@
 
 **A Minecraft Paper plugin that allows picking up written signs with the Silk Touch enchantment.**
 
-[SilkSigns Basic Use](https://github.com/joshuaprince/SilkSigns/assets/16515311/e28c04b7-958e-47bd-89ad-5efaa06cf2a3)
+[SilkSigns Basic Use](https://github.com/joshuaprince/SilkSigns/assets/16515311/89e30651-344b-447c-b31e-d1ef7cca58b9)
 
 <br/>
 <p align="center">
@@ -29,6 +29,7 @@
 * Download the latest [release](https://github.com/joshuaprince/SilkSigns/releases)
 * Place it in your plugins folder
 * Run the server once and see the generated `SilkSigns/config.yml` for configuration options
+* Give any extra permissions needed to further configure the plugin per-player
 
 ### Permissions
 
@@ -38,7 +39,7 @@
 | `silksigns.break.creative` | No One    | Drop written signs as items when broken, even in creative mode         |
 | `silksigns.break.notool`   | No One    | Drop written signs as items when broken, even without using silk touch |
 | `silksigns.place`          | Everyone  | Allow placement of written signs previously obtained with silk touch   |
-| `silksigns.reload`         | Operators | Allow use of /silksigns reload                                         |
+| `silksigns.reload`         | Operators | Allow use of `/silksigns reload`                                       |
 
 ### Commands
 
