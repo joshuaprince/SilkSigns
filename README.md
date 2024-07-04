@@ -2,8 +2,15 @@
 
 **A Minecraft Paper plugin that allows picking up written signs with the Silk Touch enchantment.**
 
-![Written Birch Hanging Sign with text "Hello!"](.github/img/item-hanging.png)
-![Written Oak Sign with both front and back text](.github/img/item-frontback.png)
+[SilkSigns Basic Use](https://github.com/joshuaprince/SilkSigns/assets/16515311/e28c04b7-958e-47bd-89ad-5efaa06cf2a3)
+
+<br/>
+<p align="center">
+  <img src=".github/img/item-hanging.png" alt="Written Birch Hanging Sign with text 'Hello!'" />
+</p>
+<p align="center">
+  <img src=".github/img/item-frontback.png" alt="Written Oak Sign with both front and back text" />
+</p>
 
 ## Features
 
