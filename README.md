@@ -24,7 +24,7 @@
 
 ## Installation and Usage
 
-**Requires Paper or a fork for Minecraft 1.20.1+**
+Requires **Paper or a fork** for Minecraft **1.20.1+** and Java 21+
 
 * Download the latest [release](https://github.com/joshuaprince/SilkSigns/releases)
 * Place it in your plugins folder
@@ -44,3 +44,8 @@
 ### Commands
 
 `/silksigns reload` - Reload config.yml
+
+## Support
+
+* Open an [issue on GitHub](https://github.com/joshuaprince/SilkSigns/issues) to report a bug or request a feature.
+* Join the [Chips's Mods](https://discord.gg/g85f9sdYCm) Discord for help.
