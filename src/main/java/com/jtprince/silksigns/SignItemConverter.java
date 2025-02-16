@@ -13,10 +13,14 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
+import org.bukkit.craftbukkit.block.CraftBlockState;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockStateMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -28,6 +32,9 @@ import static com.jtprince.silksigns.SignUtils.isBlank;
 
 public class SignItemConverter {
     final ConfigProvider config;
+
+    private final @NotNull NamespacedKey pdcKey = Objects.requireNonNull(NamespacedKey.fromString("silksigns:written_sign_contents"));
+
     public SignItemConverter(ConfigProvider config) {
         this.config = config;
     }
@@ -68,7 +75,12 @@ public class SignItemConverter {
             sign.setWaxed(false);
         }
 
-        Objects.requireNonNull(meta).setBlockState(sign);
+        meta.getPersistentDataContainer().set(pdcKey, PersistentDataType.STRING, sign.getBlockData().getAsString());
+        if (config.get().writeBlockEntityData) {
+            meta.setBlockState(sign);
+            CraftBlockState c;
+
+        }
 
         applyEnchantmentGlint(config.get().writtenSignItem.enchantmentGlint, meta);
 
@@ -79,9 +91,9 @@ public class SignItemConverter {
         }
 
         if (config.get().writtenSignItem.contentsInLore) {
-            copySignTextToMeta(sign, meta);
+            copySignTextToLore(sign, meta);
         } else {
-            copySignTextToMeta(null, meta);
+            copySignTextToLore(null, meta);
         }
 
         item.setItemMeta(meta);
@@ -147,7 +159,7 @@ public class SignItemConverter {
         }
     }
 
-    protected void copySignTextToMeta(final @Nullable org.bukkit.block.Sign sign, BlockStateMeta meta) {
+    protected void copySignTextToLore(final @Nullable org.bukkit.block.Sign sign, BlockStateMeta meta) {
         List<Component> outputLines = new ArrayList<>();
 
         if (sign == null) {

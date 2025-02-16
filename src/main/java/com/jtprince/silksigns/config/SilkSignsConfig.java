@@ -81,4 +81,11 @@ public class SilkSignsConfig {
 
     @Comment("Remove wax from waxed signs when broken with silk touch, making them\neditable again.")
     public boolean unwaxOnBreak = true;
+
+    @Comment("""
+             If true, written sign contents are copied to the item's block_entity_data.
+             (Not recommended in 1.21.4+: Enabling adds a warning to every written sign
+             item. However, this allows written signs to be placed in Creative mode even
+             when the plugin is uninstalled.)""")
+    public boolean writeBlockEntityData = false;
 }
